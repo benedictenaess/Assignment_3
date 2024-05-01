@@ -1,7 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Form.module.css';
 
 function Form() {
+
+	const [expense, setExpense] = useState({title, amount, date, category});
+	const [errorMsg, setErrorMsg] = useState({})
+
+	const validateInput =(inputTitle, inputAmount, inputDate)=>{
+		let isValid = true;
+		const clonedErrorMsg = {...errorMsg};
+		if(!inputTitle){
+			clonedErrorMsg.titleError = 'Title for expenses is required';
+			isValid = false;
+		} else {
+			clonedErrorMsg.titleError = '';
+			isValid = true;
+		}
+		if(!inputAmount){
+			clonedErrorMsg.amountError = 'Amount for expenses is required';
+			isValid = false;
+		} else {
+			clonedErrorMsg.amountError = '';
+			isValid = true;
+		}
+		if(!inputDate){
+			clonedErrorMsg.dateError = 'Date for expenses is required';
+			isValid = false
+		} else {
+			clonedErrorMsg.dateError = '';
+			isValid = true;
+		}
+		setErrorMsg(clonedErrorMsg);
+		return isValid;
+	}
+
+	const handleSubmit =()=>{
+		const newExpense = {
+			title,
+			amount,
+			date,
+			category
+		}
+		const checkValidation = validateInput();
+		if (checkValidation) {
+			console.log('Submission successfully completed');
+		} else {
+			console.log('Submission failed. Error');
+		}
+	}
+
   return (
 	<div className={styles.formContainer}>
 		<form className={styles.form}>

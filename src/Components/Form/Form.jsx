@@ -5,26 +5,27 @@ function Form() {
 	
 	const [expenseList, setExpenseList] = useState([]);
 	const [expense, setExpense] = useState({title:'', amount:'', date:'', category:''});
-	const [errorMsg, setErrorMsg] = useState({})
+	const [errorMsg, setErrorMsg] = useState({});
+	const [isInputValid, setisInputValid] = useState(false);
 
-	const validateInput =(inputTitle, inputAmount, inputDate)=>{
+	const validateInput =()=>{
 		let isValid = true;
 		const clonedErrorMsg = {...errorMsg};
-		if(!inputTitle){
+		if(!expense.title.trim()){
 			clonedErrorMsg.titleError = 'Title for expenses is required';
 			isValid = false;
 		} else {
 			clonedErrorMsg.titleError = '';
 			isValid = true;
 		}
-		if(!inputAmount){
+		if(!expense.amount.trim()){
 			clonedErrorMsg.amountError = 'Amount for expenses is required';
 			isValid = false;
 		} else {
 			clonedErrorMsg.amountError = '';
 			isValid = true;
 		}
-		if(!inputDate){
+		if(!expense.date.trim()){
 			clonedErrorMsg.dateError = 'Date for expenses is required';
 			isValid = false
 		} else {
@@ -44,6 +45,7 @@ function Form() {
 	const handleSubmit =(e)=>{
 		e.preventDefault();
 		const isValid = validateInput();
+		setisInputValid(isValid);
 		if (isValid) {
 			console.log('Submission successfully completed');
 			setExpenseList(prev=>[...prev, expense])
@@ -88,7 +90,9 @@ function Form() {
 				<div>hey</div>
 			</div>
 			<div className={styles.individualExpense}>
-				
+			{expenseList.map((expense, index)=>{
+					return <div key={index}>{expense.title}</div>
+				})}
 			</div>
 		</section>
 	</div>

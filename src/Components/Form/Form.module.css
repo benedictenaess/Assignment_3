@@ -8,6 +8,11 @@
 	padding: 2rem;
 }
 
+.header {
+	font-size: 3em;
+	margin-bottom: 2rem;
+}
+
 .form {
 	display: flex;
 	flex-direction: row;
@@ -15,7 +20,7 @@
 	align-items: center;
 	flex-basis: 20%;
 	width: 100%;
-	border: 1px solid black;
+	border: 1px solid #333333;
 	border-radius: 8px;
 }
 
@@ -28,7 +33,7 @@
 .form div input,
 .form div select {
 	border-radius: 8px;
-	border: 2px solid #b4b4b4;
+	border: 1px solid #6f6f6f;
 	padding: 0.3rem 0.6rem;
 	cursor: pointer;
 	transition: border-color 0.25s;
@@ -40,16 +45,24 @@
 	width: 100%;
 	flex-direction: column;
 	align-items: center;
-	gap: 2rem;
+	gap: 1rem;
 	margin-top: 1rem;
 }
 
 .individualExpense {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-evenly;
+	justify-content: space-between;
 	width: 100%;
-	/* border-bottom: 1px solid black; */
+	background-color: #ebeaea;
+	border-radius: 8px;
+	padding: 1rem;
+}
+
+.individualExpense span {
+	display: flex;
+	flex-basis: 25%;
+	justify-content: center;
 }
 
 .submitButton {

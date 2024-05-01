@@ -57,6 +57,7 @@ function Form() {
 
   return (
 	<div className={styles.formContainer}>
+		<h1 className={styles.header}>Expense Tracker</h1>
 		<form onSubmit={handleSubmit} className={styles.form}>
 			<div>
 				<label htmlFor="title">Title</label>
@@ -73,7 +74,7 @@ function Form() {
 			<div>
 				<label htmlFor="category">Category</label>
 				<select onChange={handleChange} name="category" id="category" value={expense.category}>
-					<option value="default">--</option>
+					<option value="">--</option>
 					<option value="housing">Housing</option>
 					<option value="groceries">Groceries</option>
 					<option value="transportation">Transportation</option>
@@ -84,16 +85,14 @@ function Form() {
 			<button type='submit' className={styles.submitButton}>Add Expense</button>
 		</form>
 		<section className={styles.expensesContainer}>
-			<div className={styles.individualExpense}>
-				<div>hey</div>
-				<div>hey</div>
-				<div>hey</div>
-			</div>
-			<div className={styles.individualExpense}>
 			{expenseList.map((expense, index)=>{
-					return <div key={index}>{expense.title}</div>
+				return <div key={index} className={styles.individualExpense}>
+						<span>{expense.title}</span>
+						<span>{expense.amount}</span>
+						<span>{expense.date}</span>
+						<span>{expense.category}</span>
+					</div>
 				})}
-			</div>
 		</section>
 	</div>
   )

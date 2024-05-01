@@ -61,11 +61,12 @@
 
 .individualExpense span {
 	display: flex;
-	flex-basis: 25%;
+	flex-basis: 20%;
 	justify-content: center;
 }
 
-.submitButton {
+.submitButton,
+.deleteButton {
 	border-radius: 8px;
 	border: 2px solid transparent;
 	padding: 0.3rem 0.6rem;
@@ -74,11 +75,16 @@
 	transition: border-color 0.25s;
 }
 
-.submitButton:hover {
+.deleteButton {
+	background-color: white;
+}
+
+.submitButton:hover,
+.deleteButton:hover {
 	border-color: #646cff;
 }
 
-.submitButton:focus {
+.submitButton:focus,
+.deleteButton:hover {
 	outline: 4px auto -webkit-focus-ring-color;
 }
-

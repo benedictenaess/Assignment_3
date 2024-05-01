@@ -39,6 +39,20 @@
 	transition: border-color 0.25s;
 }
 
+.errorMessages {
+	display: flex;
+	width: 100%;
+	flex-direction: row;
+	align-items: center;
+	color: rgb(232, 0, 0);
+}
+
+.errorMessages span {
+	display: flex;
+	flex-basis: 25%;
+	justify-content: center;
+}
+
 .expensesContainer {
 	display: flex;
 	flex-basis: 80%;

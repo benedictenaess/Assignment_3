@@ -91,6 +91,11 @@ function Form() {
 			</div>
 			<button type='submit' className={styles.submitButton}>Add Expense</button>
 		</form>
+		<section className={styles.errorMessages}>
+			<span>{errorMsg.titleError}</span>
+			<span>{errorMsg.amountError}</span>
+			<span>{errorMsg.dateError}</span>
+		</section>
 		<section className={styles.expensesContainer}>
 			{expenseList.map((expense, index)=>{
 				return <div key={index} className={styles.individualExpense}>

@@ -18,7 +18,7 @@ function Form() {
 			clonedErrorMsg.titleError = '';
 			isValid = true;
 		}
-		if(!expense.amount.trim()){
+		if(!expense.amount){
 			clonedErrorMsg.amountError = 'Amount for expenses is required';
 			isValid = false;
 		} else {
@@ -38,7 +38,8 @@ function Form() {
 
 	const handleChange =(e)=>{
 		const {name, value} = e.target;
-		setExpense(prev=>({...prev, [name]:value}));
+		const newValue = name === 'amount' ? parseFloat(value) : value;
+		setExpense(prev=>({...prev, [name]:newValue}));
 	}
 
 	const handleSubmit =(e)=>{
@@ -60,7 +61,6 @@ function Form() {
 		});
 		setExpenseList(newExpenseArray);
 	}
-
 
   return (
 	<div className={styles.formContainer}>
@@ -101,6 +101,9 @@ function Form() {
 						<button className={styles.deleteButton} onClick={()=>handleDelete(index)}>Remove</button>
 					</div>
 				})}
+				<div>
+					{`Total amount: ${expenseList.reduce((acc,cur)=> acc + cur.amount,0)}`}
+				</div>
 		</section>
 	</div>
   )

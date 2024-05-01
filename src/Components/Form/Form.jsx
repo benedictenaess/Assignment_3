@@ -39,7 +39,6 @@ function Form() {
 	const handleChange =(e)=>{
 		const {name, value} = e.target;
 		setExpense(prev=>({...prev, [name]:value}));
-		console.log(expense);
 	}
 
 	const handleSubmit =(e)=>{
@@ -48,8 +47,8 @@ function Form() {
 		setisInputValid(isValid);
 		if (isValid) {
 			console.log('Submission successfully completed');
-			setExpenseList(prev=>[...prev, expense])
-			console.log(expenseList);
+			setExpenseList(prev=>[...prev, expense]);
+			setExpense({title:'', amount:'', date:'', category:''})
 		} else {
 			console.log('Submission failed. Error');
 		}

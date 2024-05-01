@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import styles from './Form.module.css';
 
 function Form() {
-
-	const [expense, setExpense] = useState({title, amount, date, category});
+	
+	const [expenseList, setExpenseList] = useState([]);
+	const [expense, setExpense] = useState({title:'', amount:'', date:'', category:''});
 	const [errorMsg, setErrorMsg] = useState({})
 
 	const validateInput =(inputTitle, inputAmount, inputDate)=>{
@@ -34,16 +35,19 @@ function Form() {
 		return isValid;
 	}
 
-	const handleSubmit =()=>{
-		const newExpense = {
-			title,
-			amount,
-			date,
-			category
-		}
-		const checkValidation = validateInput();
-		if (checkValidation) {
+	const handleChange =(e)=>{
+		const {name, value} = e.target;
+		setExpense(prev=>({...prev, [name]:value}));
+		console.log(expense);
+	}
+
+	const handleSubmit =(e)=>{
+		e.preventDefault();
+		const isValid = validateInput();
+		if (isValid) {
 			console.log('Submission successfully completed');
+			setExpenseList(prev=>[...prev, expense])
+			console.log(expenseList);
 		} else {
 			console.log('Submission failed. Error');
 		}
@@ -51,22 +55,22 @@ function Form() {
 
   return (
 	<div className={styles.formContainer}>
-		<form className={styles.form}>
+		<form onSubmit={handleSubmit} className={styles.form}>
 			<div>
 				<label htmlFor="title">Title</label>
-				<input type="text" />
+				<input name='title' id='title' value={expense.title} onChange={handleChange} type="text" />
 			</div>
 			<div>
 				<label htmlFor="amount">Amount</label>
-				<input type="number" />
+				<input name='amount' id='amount' value={expense.amount} onChange={handleChange} type="number" />
 			</div>
 			<div>
 				<label htmlFor="date">Date</label>
-				<input type="date" />
+				<input name='date' id='date' value={expense.date} onChange={handleChange} type="date" />
 			</div>
 			<div>
 				<label htmlFor="category">Category</label>
-				<select name="category" id="category">
+				<select onChange={handleChange} name="category" id="category" value={expense.category}>
 					<option value="default">--</option>
 					<option value="housing">Housing</option>
 					<option value="groceries">Groceries</option>
@@ -75,7 +79,7 @@ function Form() {
 					<option value="other">Other</option>
 				</select>
 			</div>
-			<button className={styles.submitButton}>Add Expense</button>
+			<button type='submit' className={styles.submitButton}>Add Expense</button>
 		</form>
 		<section className={styles.expensesContainer}>
 			<div className={styles.individualExpense}>
@@ -83,8 +87,8 @@ function Form() {
 				<div>hey</div>
 				<div>hey</div>
 			</div>
-			<div div className={styles.individualExpense}>
-				ho
+			<div className={styles.individualExpense}>
+				
 			</div>
 		</section>
 	</div>

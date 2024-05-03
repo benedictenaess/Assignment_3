@@ -64,54 +64,58 @@ function Form() {
 	}
 
   return (
-	<div className={styles.formContainer}>
-		<h1 className={styles.header}>Expense Tracker</h1>
-		<form onSubmit={handleSubmit} className={styles.form}>
-			<div>
-				<label htmlFor="title">Title</label>
-				<input name='title' id='title' value={expense.title} onChange={handleChange} type="text" />
-			</div>
-			<div>
-				<label htmlFor="amount">Amount</label>
-				<input name='amount' id='amount' value={expense.amount} onChange={handleChange} type="number" />
-			</div>
-			<div>
-				<label htmlFor="date">Date</label>
-				<input name='date' id='date' value={expense.date} onChange={handleChange} type="date" />
-			</div>
-			<div>
-				<label htmlFor="category">Category</label>
-				<select onChange={handleChange} name="category" id="category" value={expense.category}>
-					<option value="&ndash;">--</option>
-					<option value="housing">Housing</option>
-					<option value="groceries">Groceries</option>
-					<option value="transportation">Transportation</option>
-					<option value="clothes">Clothes</option>
-					<option value="other">Other</option>
-				</select>
-			</div>
-			<button type='submit' className={styles.submitButton}>Add Expense</button>
-		</form>
-		<section className={styles.errorMessages}>
-			<span>{errorMsg.titleError}</span>
-			<span>{errorMsg.amountError}</span>
-			<span>{errorMsg.dateError}</span>
-		</section>
-		<Sort expenseList={expenseList} setExpenseList={setExpenseList}/>
-		<section className={styles.expensesContainer}>
-			{expenseList.map((expense, index)=>{
-				return <div key={index} className={styles.individualExpense}>
-						<span>{expense.title}</span>
-						<span>{expense.amount}</span>
-						<span>{expense.date}</span>
-						<span>{expense.category}</span>
-						<button className={styles.deleteButton} onClick={()=>handleDelete(index)}>Remove</button>
-					</div>
-				})}
+	<div>
+		<div className={styles.headerContainer}>
+			<h1 className={styles.header}>Expense Tracker</h1>
+		</div>
+			<div className={styles.formContainer}>
+			<form onSubmit={handleSubmit} className={styles.form}>
 				<div>
-					{`Total amount: ${expenseList.reduce((acc,cur)=> acc + cur.amount,0)}`}
+					<label htmlFor="title">Title</label>
+					<input name='title' id='title' value={expense.title} onChange={handleChange} type="text" />
 				</div>
-		</section>
+				<div>
+					<label htmlFor="amount">Amount</label>
+					<input name='amount' id='amount' value={expense.amount} onChange={handleChange} type="number" />
+				</div>
+				<div>
+					<label htmlFor="date">Date</label>
+					<input name='date' id='date' value={expense.date} onChange={handleChange} type="date" />
+				</div>
+				<div>
+					<label htmlFor="category">Category</label>
+					<select onChange={handleChange} name="category" id="category" value={expense.category}>
+						<option value="&ndash;">--</option>
+						<option value="housing">Housing</option>
+						<option value="groceries">Groceries</option>
+						<option value="transportation">Transportation</option>
+						<option value="clothes">Clothes</option>
+						<option value="other">Other</option>
+					</select>
+				</div>
+				<button type='submit' className={styles.submitButton}>Add Expense</button>
+			</form>
+			<section className={styles.errorMessages}>
+				<span>{errorMsg.titleError}</span>
+				<span>{errorMsg.amountError}</span>
+				<span>{errorMsg.dateError}</span>
+			</section>
+			<Sort expenseList={expenseList} setExpenseList={setExpenseList}/>
+			<section className={styles.expensesContainer}>
+				{expenseList.map((expense, index)=>{
+					return <div key={index} className={styles.individualExpense}>
+							<span>{expense.title}</span>
+							<span>{expense.amount}</span>
+							<span>{expense.date}</span>
+							<span>{expense.category}</span>
+							<button className={styles.deleteButton} onClick={()=>handleDelete(index)}>Remove</button>
+						</div>
+					})}
+					<div>
+						{`Total amount: ${expenseList.reduce((acc,cur)=> acc + cur.amount,0)}`}
+					</div>
+			</section>
+		</div>
 	</div>
   )
 }

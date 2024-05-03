@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import styles from './Sort.module.css';
 
 function Sort({expenseList, setExpenseList}) {
 
@@ -30,15 +31,17 @@ function Sort({expenseList, setExpenseList}) {
 	}
 
   return (
-	<div>
-		<label htmlFor="sort-options">Sort by: </label>
-		<select name="sort-options" id="sort-options" value={selectedOption} onChange={handleSort}>
-			<option value="all">All</option>
-			<option value="title">Title</option>
-			<option value="amount">Amount</option>
-			<option value="date">Date</option>
-			<option value="category">Category</option>
-		</select>
+	<div className={styles.sort_container}>
+		<div className={styles.sort}>
+			<label htmlFor="sort-options">Sort by: </label>
+			<select name="sort-options" id="sort-options" value={selectedOption} onChange={handleSort}>
+				<option value="all">All</option>
+				<option value="title">Title</option>
+				<option value="amount">Amount</option>
+				<option value="date">Date</option>
+				<option value="category">Category</option>
+			</select>
+		</div>
 	</div>
   )
 }

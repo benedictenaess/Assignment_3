@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Form.module.css';
+import Sort from '../Sort/Sort';
 
 function Form() {
 	
@@ -12,21 +13,21 @@ function Form() {
 		let isValid = true;
 		const clonedErrorMsg = {...errorMsg};
 		if(!expense.title.trim()){
-			clonedErrorMsg.titleError = 'Title for expenses is required';
+			clonedErrorMsg.titleError = 'Title is required';
 			isValid = false;
 		} else {
 			clonedErrorMsg.titleError = '';
 			isValid = true;
 		}
 		if(!expense.amount){
-			clonedErrorMsg.amountError = 'Amount for expenses is required';
+			clonedErrorMsg.amountError = 'Amount is required';
 			isValid = false;
 		} else {
 			clonedErrorMsg.amountError = '';
 			isValid = true;
 		}
 		if(!expense.date.trim()){
-			clonedErrorMsg.dateError = 'Date for expenses is required';
+			clonedErrorMsg.dateError = 'Date is required';
 			isValid = false
 		} else {
 			clonedErrorMsg.dateError = '';
@@ -96,6 +97,7 @@ function Form() {
 			<span>{errorMsg.amountError}</span>
 			<span>{errorMsg.dateError}</span>
 		</section>
+		<Sort expenseList={expenseList} setExpenseList={setExpenseList}/>
 		<section className={styles.expensesContainer}>
 			{expenseList.map((expense, index)=>{
 				return <div key={index} className={styles.individualExpense}>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './Form.module.css';
 import Sort from '../Sort/Sort';
 
@@ -11,29 +11,35 @@ function Form() {
 	const [selectedOption, setSelectedOption] = useState('all');
 
 	const validateInput =()=>{
-		let isValid = true;
+		let isTitleValid = true;
+		let isAmountValid = true;
+		let isDateValid = true;
+
 		const clonedErrorMsg = {...errorMsg};
 		if(!expense.title.trim()){
 			clonedErrorMsg.titleError = 'Title is required';
-			isValid = false;
+			isTitleValid = false;
 		} else {
 			clonedErrorMsg.titleError = '';
-			isValid = true;
+			isTitleValid = true;
 		}
 		if(!expense.amount){
 			clonedErrorMsg.amountError = 'Amount is required';
-			isValid = false;
+			isAmountValid = false;
 		} else {
 			clonedErrorMsg.amountError = '';
-			isValid = true;
+			isAmountValid = true;
 		}
-		if(!expense.date.trim()){
+		if(!expense.date){
 			clonedErrorMsg.dateError = 'Date is required';
-			isValid = false
+			isDateValid = false
 		} else {
 			clonedErrorMsg.dateError = '';
-			isValid = true;
+			isDateValid = true;
 		}
+		
+		let isValid = isTitleValid && isAmountValid && isDateValid;
+
 		setErrorMsg(clonedErrorMsg);
 		return isValid;
 	}
@@ -57,7 +63,7 @@ function Form() {
 			});
 			setExpense({title:'', amount:'', date:'', category:'-'});
 			setSelectedOption('all');
-		} else {
+		} else if (!isValid) {
 			console.log('Submission failed. Error');
 		}
 	}
@@ -68,6 +74,28 @@ function Form() {
 		});
 		setExpenseList(newExpenseArray);
 	}
+
+	const errorMsgTimer =()=>{
+		if(errorMsg.titleError) {
+			setTimeout(() => {
+				setErrorMsg(prev=> ({...prev, titleError: ''}))
+			}, 2000);
+		}
+		if(errorMsg.amountError) {
+			setTimeout(() => {
+				setErrorMsg(prev=>({...prev, amountError: ''}))
+			}, 2000);
+		}
+		if(errorMsg.dateError) {
+			setTimeout(()=>{
+				setErrorMsg(prev=>({...prev, dateError: ''}))
+			}, 2000)
+		}
+	};
+
+	useEffect(()=>{
+		errorMsgTimer();
+	},[errorMsg.titleError, errorMsg.amountError, errorMsg.dateError])
 
   return (
 	<div>

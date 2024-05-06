@@ -1,33 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Sort.module.css';
 
-function Sort({expenseList, setExpenseList}) {
+function Sort({expenseList, setExpenseList, selectedOption, setSelectedOption}) {
 
-	const [selectedOption, setSelectedOption] = useState('all');
-	
-	const expenseArray = [...expenseList];
-	
 	const handleSort =(e)=>{
 		let selectedValue = e.target.value;
 		setSelectedOption(selectedValue);
 
+		let sortedExpenseArray = [...expenseList];
+
 		switch (selectedValue) {
+			case 'all':
+				sortedExpenseArray = expenseList.sort((a,b)=>a.index - b.index);
+				break;
 			case 'title':
-				expenseArray.sort((a,b)=>a.title.localeCompare(b.title));
+				sortedExpenseArray.sort((a,b)=>a.title.localeCompare(b.title));
 				break;
 			case 'amount':
-				expenseArray.sort((a,b)=>a.amount - b.amount);
+				sortedExpenseArray.sort((a,b)=>a.amount - b.amount);
 				break;
 			case 'date':
-				expenseArray.sort((a,b)=>new Date(b.date)-new Date(a.date))
+				sortedExpenseArray.sort((a,b)=>new Date(b.date)-new Date(a.date))
 				break;
 			case 'category':
-				expenseArray.sort((a,b)=>a.category.localeCompare(b.category));
+				sortedExpenseArray.sort((a,b)=>a.category.localeCompare(b.category));
 				break;
 			default:
 				break;
 		}
-		setExpenseList(expenseArray);
+		setExpenseList(sortedExpenseArray);
 	}
 
   return (

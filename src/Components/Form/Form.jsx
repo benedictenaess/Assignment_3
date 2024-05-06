@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styles from './Form.module.css';
 import Sort from '../Sort/Sort';
 
@@ -8,6 +8,7 @@ function Form() {
 	const [expense, setExpense] = useState({title:'', amount:'', date:'', category:'-'});
 	const [errorMsg, setErrorMsg] = useState({});
 	const [isInputValid, setisInputValid] = useState(false);
+	const [selectedOption, setSelectedOption] = useState('all');
 
 	const validateInput =()=>{
 		let isValid = true;
@@ -49,8 +50,13 @@ function Form() {
 		setisInputValid(isValid);
 		if (isValid) {
 			console.log('Submission successfully completed');
-			setExpenseList(prev=>[...prev, expense]);
-			setExpense({title:'', amount:'', date:'', category:'-'})
+			setExpenseList(prev=>{
+			const submittedExpenseArray = [...prev, {...expense, index: prev.length}];
+			submittedExpenseArray.sort((a,b)=>a.index - b.index);
+			return submittedExpenseArray;
+			});
+			setExpense({title:'', amount:'', date:'', category:'-'});
+			setSelectedOption('all');
 		} else {
 			console.log('Submission failed. Error');
 		}
@@ -100,7 +106,7 @@ function Form() {
 				<span>{errorMsg.amountError}</span>
 				<span>{errorMsg.dateError}</span>
 			</section>
-			<Sort expenseList={expenseList} setExpenseList={setExpenseList}/>
+			<Sort expenseList={expenseList} setExpenseList={setExpenseList} selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
 			<section className={styles.expensesContainer}>
 				{expenseList.map((expense, index)=>{
 					return <div key={index} className={styles.individualExpense}>

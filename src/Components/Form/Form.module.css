@@ -115,12 +115,13 @@
 	outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (max-width:1200px) {
-	.form div {
+@media (max-width:1250px) {
+	.formInputSection div {
 		flex-direction: column;
 	}
-	input {
-		width: 8rem;
+	.formInputSection div input,
+	.formInputSection div select {
+		width: 80%;
 	}
 }
 
@@ -131,17 +132,9 @@
 		gap: 1rem;
 		padding: 1rem;
 	}
-	.form div {
+	.formInputSection div {
 		flex-direction: row;
 		justify-content: space-between;
-	}
-	.form div input,
-	.form div select {
 		width: 80%;
-	}
-	.errorMessages {
-		flex-direction: column;
-		align-items: center;
-		color: rgb(232, 0, 0);
 	}
 }

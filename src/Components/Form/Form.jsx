@@ -76,36 +76,61 @@ function Form() {
 		</div>
 			<div className={styles.formContainer}>
 			<form onSubmit={handleSubmit} className={styles.form}>
-				<div>
-					<label htmlFor="title">Title</label>
-					<input name='title' id='title' value={expense.title} onChange={handleChange} type="text" />
+				<div className={styles.formInputSection}>
+					<div>
+						<label htmlFor="title">Title</label>
+						<input name='title' id='title' value={expense.title} onChange={handleChange} type="text" />
+					</div>
+					<div className={styles.errorMsg}>
+						<span>{errorMsg.titleError}</span>
+					</div>
 				</div>
-				<div>
-					<label htmlFor="amount">Amount</label>
-					<input name='amount' id='amount' value={expense.amount} onChange={handleChange} type="number" />
+
+				<div className={styles.formInputSection}>
+					<div>
+						<label htmlFor="amount">Amount</label>
+						<input name='amount' id='amount' value={expense.amount} onChange={handleChange} type="number" />
+					</div>
+					<div className={styles.errorMsg}>
+						<span>{errorMsg.amountError}</span>
+					</div>
 				</div>
-				<div>
-					<label htmlFor="date">Date</label>
-					<input name='date' id='date' value={expense.date} onChange={handleChange} type="date" />
+
+				<div className={styles.formInputSection}>
+					<div>
+						<label htmlFor="date">Date</label>
+						<input name='date' id='date' value={expense.date} onChange={handleChange} type="date" />
+					</div>
+					<div className={styles.errorMsg}>
+						<span>{errorMsg.dateError}</span>
+					</div>
 				</div>
-				<div>
-					<label htmlFor="category">Category</label>
-					<select onChange={handleChange} name="category" id="category" value={expense.category}>
-						<option value="&ndash;">--</option>
-						<option value="housing">Housing</option>
-						<option value="groceries">Groceries</option>
-						<option value="transportation">Transportation</option>
-						<option value="clothes">Clothes</option>
-						<option value="other">Other</option>
-					</select>
+
+				<div className={styles.formInputSection}>
+					<div>
+						<label htmlFor="category">Category</label>
+						<select onChange={handleChange} name="category" id="category" value={expense.category}>
+							<option value="&ndash;">--</option>
+							<option value="housing">Housing</option>
+							<option value="groceries">Groceries</option>
+							<option value="transportation">Transportation</option>
+							<option value="clothes">Clothes</option>
+							<option value="other">Other</option>
+						</select>
+					</div>
+					<div className={styles.errorMsg}></div>
 				</div>
-				<button type='submit' className={styles.submitButton}>Add Expense</button>
+
+				<div className={styles.formInputSection}>
+					<button type='submit' className={styles.submitButton}>Add Expense</button>
+					<div className={styles.errorMsg}></div>
+				</div>
 			</form>
-			<section className={styles.errorMessages}>
-				<span>{errorMsg.titleError}</span>
-				<span>{errorMsg.amountError}</span>
-				<span>{errorMsg.dateError}</span>
+
+			<section className={styles.expenseTotal}>
+				{`Total amount: ${expenseList.reduce((acc,cur)=> acc + cur.amount,0)}`}
 			</section>
+
 			<Sort expenseList={expenseList} setExpenseList={setExpenseList} selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
 			<section className={styles.expensesContainer}>
 				{expenseList.map((expense, index)=>{
@@ -117,9 +142,6 @@ function Form() {
 							<button className={styles.deleteButton} onClick={()=>handleDelete(index)}>Remove</button>
 						</div>
 					})}
-					<div>
-						{`Total amount: ${expenseList.reduce((acc,cur)=> acc + cur.amount,0)}`}
-					</div>
 			</section>
 		</div>
 	</div>

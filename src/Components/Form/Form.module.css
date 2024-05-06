@@ -30,16 +30,24 @@
 	border: 1px solid #333333;
 	border-radius: 8px;
 	padding: 1rem;
+	padding-top: 2rem;
 }
 
-.form div {
+.formInputSection {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+}
+
+.formInputSection div {
 	display: flex;
 	align-items: center;
 	gap: 1rem;
 }
 
-.form div input,
-.form div select {
+.formInputSection div input,
+.formInputSection div select {
 	border-radius: 8px;
 	border: 1px solid #6f6f6f;
 	padding: 0.3rem 0.6rem;
@@ -47,20 +55,15 @@
 	transition: border-color 0.25s;
 }
 
-.errorMessages {
-	display: flex;
-	flex-basis: 5%;
-	width: 100%;
-	flex-direction: row;
-	align-items: center;
+.errorMsg {
 	color: rgb(232, 0, 0);
 }
 
-.errorMessages span {
-	display: flex;
-	flex-basis: 20%;
-	justify-content: center;
+.expenseTotal {
+	padding-top: 2rem;
+	flex-basis: 5%;
 }
+
 
 .expensesContainer {
 	display: flex;

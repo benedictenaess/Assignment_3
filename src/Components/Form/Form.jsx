@@ -9,6 +9,7 @@ function Form() {
 	const [errorMsg, setErrorMsg] = useState({});
 	const [isInputValid, setisInputValid] = useState(false);
 	const [selectedOption, setSelectedOption] = useState('all');
+	const submitButtonElement = useRef(null);
 
 	const validateInput =()=>{
 		let isTitleValid = true;
@@ -32,7 +33,7 @@ function Form() {
 		}
 		if(!expense.date){
 			clonedErrorMsg.dateError = 'Date is required';
-			isDateValid = false
+			isDateValid = false;
 		} else {
 			clonedErrorMsg.dateError = '';
 			isDateValid = true;
@@ -75,7 +76,7 @@ function Form() {
 		setExpenseList(newExpenseArray);
 	}
 
-	const errorMsgTimer =()=>{
+	const resetErrorMsg =()=>{
 		if(errorMsg.titleError) {
 			setTimeout(() => {
 				setErrorMsg(prev=> ({...prev, titleError: ''}))
@@ -94,8 +95,18 @@ function Form() {
 	};
 
 	useEffect(()=>{
-		errorMsgTimer();
+		resetErrorMsg();
 	},[errorMsg.titleError, errorMsg.amountError, errorMsg.dateError])
+
+	const focusButton =()=>{
+		submitButtonElement.current.focus()
+	}
+
+	useEffect(()=>{
+		setTimeout(() => {
+			submitButtonElement.current.blur();
+		}, 100);
+	},[focusButton])
 
   return (
 	<div>
@@ -150,7 +161,7 @@ function Form() {
 				</div>
 
 				<div className={styles.formInputSection}>
-					<button type='submit' className={styles.submitButton}>Add Expense</button>
+					<button onClick={focusButton} ref={submitButtonElement} type='submit' className={styles.submitButton}>Add Expense</button>
 					<div className={styles.errorMsg}></div>
 				</div>
 			</form>

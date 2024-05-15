@@ -112,10 +112,6 @@
 	border-color: #646cff;
 }
 
-.submitButton:focus {
-	background-color: #646cff;
-}
-
 @media (max-width:1250px) {
 	.formInputSection div {
 		flex-direction: column;

@@ -108,8 +108,22 @@
 }
 
 .submitButton:hover,
-.deleteButton:hover {
+.deleteButton:hover,
+.scrollButton:hover {
 	border-color: #646cff;
+}
+
+.scrollButtonVisible{
+	visibility: hidden;
+	margin: 2rem;
+	background-color: #ebeaea;
+	border-radius: 8px;
+	border: 2px solid transparent;
+	padding: 0.3rem 0.6rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: border-color 0.25s;
+	-webkit-transition: background-color 0.1s ease-in-out;
 }
 
 @media (max-width:1250px) {

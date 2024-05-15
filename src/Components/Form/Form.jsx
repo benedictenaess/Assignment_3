@@ -9,6 +9,8 @@ function Form() {
 	const [errorMsg, setErrorMsg] = useState({});
 	const [isInputValid, setisInputValid] = useState(false);
 	const [selectedOption, setSelectedOption] = useState('all');
+	const [buttonVisibility, setButtonVisibility] = useState(false);
+	const scrollButton = useRef(null);
 
 	const validateInput =()=>{
 		let isTitleValid = true;
@@ -95,17 +97,28 @@ function Form() {
 
 	useEffect(()=>{
 		resetErrorMsg();
-	},[errorMsg.titleError, errorMsg.amountError, errorMsg.dateError])
+	},[errorMsg.titleError, errorMsg.amountError, errorMsg.dateError]);
 
-	// const focusButton =()=>{
-	// 	submitButtonElement.current.focus()
-	// }
+	const handleScroll =()=>{
+		const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+		const isVisible = scrollPosition > 2 ? true : false;
+		setButtonVisibility(isVisible);
+		scrollButton.current.style.visibility = isVisible ? 'visible' : 'hidden';
+	}
 
-	// useEffect(()=>{
-	// 	setTimeout(() => {
-	// 		submitButtonElement.current.blur();
-	// 	}, 100);
-	// },[focusButton])
+	useEffect(()=>{
+		window.addEventListener('scroll', handleScroll);
+		return ()=>{
+			window.removeEventListener('scroll', handleScroll);
+		}
+	},[]);
+
+	const scrollToTop =()=>{
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		});
+	}
 
   return (
 	<div>
@@ -181,6 +194,7 @@ function Form() {
 						</div>
 					})}
 			</section>
+			<button value={buttonVisibility} onClick={scrollToTop} className={styles.scrollButtonVisible} ref={scrollButton}>Scroll up</button>
 		</div>
 	</div>
   )

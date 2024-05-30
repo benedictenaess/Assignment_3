@@ -57,7 +57,6 @@ function Form() {
 		const isValid = validateInput();
 		setisInputValid(isValid);
 		if (isValid) {
-			console.log('Submission successfully completed');
 			setExpenseList(prev=>{
 			const submittedExpenseArray = [...prev, {...expense, index: prev.length}];
 			submittedExpenseArray.sort((a,b)=>a.index - b.index);
